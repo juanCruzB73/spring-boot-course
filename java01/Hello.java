@@ -44,9 +44,23 @@ class ObjectArray{
     }
 }
 
+class PrintTriangule{
+    public void printTraingule(){
+        for(int i=0;i<5;i++){
+            for(int j=0;j<(4-i);j++){
+                System.out.print(" ");
+            }
+            for(int j=0;j<((i*2)+1);j++){
+                System.out.print("*");
+            }
+            System.out.println("");
+        }
+    }
+}
+
 public class Hello{
     public static void main(String[] args ){
-        System.out.println("class practice");
+        /*System.out.println("class practice");
         Sum sum = new Sum();
         int result=sum.sum(5, 6);
         System.out.println(result);
@@ -69,7 +83,11 @@ public class Hello{
         persons[0]=person1;
         persons[1]=person2;
         ObjectArray obArray = new ObjectArray();
-        obArray.showPersons(persons);
+        obArray.showPersons(persons);*/
+
+        PrintTriangule triangule=new PrintTriangule();
+        triangule.printTraingule();
+
 
     }
 }
