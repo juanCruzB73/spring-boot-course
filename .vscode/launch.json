@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "SpringbootfirstApplication",
+            "request": "launch",
+            "mainClass": "springbootfirst.src.main.java.com.springbootfirst.springbootfirst.SpringbootfirstApplication",
+            "projectName": "spring-boot_75b02a56"
+        },
+        {
+            "type": "java",
             "name": "Main",
             "request": "launch",
             "mainClass": "jdbcSection05.src.Main",
