@@ -25,7 +25,12 @@
             <version>5.10.0</version>
             <scope>test</scope>
         </dependency>
-
+        <!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-context</artifactId>
+        <version>6.1.15</version>
+      </dependency>
 
       <!-- https://mvnrepository.com/artifact/com.mysql/mysql-connector-j 
       <dependency>
