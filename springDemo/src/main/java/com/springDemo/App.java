@@ -11,9 +11,8 @@ public class App
 {
     public static void main( String[] args )
     {
-        ApplicationContext context = new ClassPathXmlApplicationContext();
-        
-        Alien alien = (Alien)context.getBean("alien");
+        ApplicationContext context = new ClassPathXmlApplicationContext("spring-config.xml");
+        Alien alien = (Alien) context.getBean("alien");
         alien.talk();
     }
 }
