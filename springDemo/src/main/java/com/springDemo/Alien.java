@@ -1,8 +1,19 @@
 package com.springDemo;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
+
+@Component
 public class Alien  {
+
     private int age;
+
+    @Autowired
+    @Qualifier("laptopWondows")
     private Computer comp;
+
+
     public Alien(){
         System.out.println("alien created");
     }
@@ -31,7 +42,7 @@ public class Alien  {
 
     public void code(){
         System.out.println("coding");
-        comp.coding(); 
+        comp.coding();
     }
 
     
