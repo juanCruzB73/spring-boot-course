@@ -3,8 +3,14 @@
     xsi:schemaLocation="
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <!-- bean definitions here -->
-    <bean id="alien" class="com.springDemo.Alien">
+    <!-- bean definitions here -scope="singleton" -->
+    <bean id="alien" class="com.springDemo.Alien"  >
+        <constructor-arg index="1" ref="laptop"/>
+        <constructor-arg index="0" value="21"/>
+        <!--  <property name="lap" ref="laptop" ></property> -->
+
+    </bean>
+    <bean id="laptop" class="com.springDemo.Laptop">
     </bean>
 
 </beans>

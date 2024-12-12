@@ -13,6 +13,7 @@ public class App
     {
         ApplicationContext context = new ClassPathXmlApplicationContext("spring-config.xml");
         Alien alien = (Alien) context.getBean("alien");
-        alien.talk();
+
+        alien.code();
     }
 }
