@@ -1,7 +1,12 @@
 package com.jobApp.jobApp.model;
 
+import lombok.Data;
+import org.springframework.stereotype.Component;
+
 import java.util.List;
 
+@Data
+@Component
 public class JobPost {
     private Long postId;
     private String postProfile;
