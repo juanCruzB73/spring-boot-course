@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 @Controller
 public class JobController {
@@ -15,14 +16,15 @@ public class JobController {
     }
 
     @GetMapping("/addjob")
-    public String addJob() {
+    public String addJob(Model model) {
+        model.addAttribute("jobPost", new JobPost());
         return "addjob";
     }
 
     @PostMapping("/handleForm")
-    public String handleForm(JobPost jobPost, Model model) {
+    public String handleForm(@ModelAttribute JobPost jobPost, Model model) {
         System.out.println("JobPost received: " + jobPost);
-        model.addAttribute("jobPost", jobPost); // Add jobPost object to the model
+        model.addAttribute("jobPost", jobPost);
         return "succes";
     }
 }
