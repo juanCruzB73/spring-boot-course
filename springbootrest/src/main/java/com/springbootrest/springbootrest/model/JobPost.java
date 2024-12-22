@@ -8,18 +8,18 @@ import java.util.List;
 @Data
 @Component
 public class JobPost {
-    private Long postId;
+    private int postId;
     private String postProfile;
     private String postDesc;
     private int reqExperience;
     private List<String> postTechStack;
 
     // Getters and Setters
-    public Long getPostId() {
+    public int getPostId() {
         return postId;
     }
 
-    public void setPostId(Long postId) {
+    public void setPostId(int postId) {
         this.postId = postId;
     }
 

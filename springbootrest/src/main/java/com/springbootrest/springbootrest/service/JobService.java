@@ -18,4 +18,16 @@ public class JobService {
         return jobRepository.getAllJobs();
     }
 
+    public JobPost getJobById(int id) {
+        return  jobRepository.getJobById(id);
+    }
+
+    public JobPost editJobs(JobPost jobPost) {
+        return jobRepository.editJobs(jobPost);
+
+    }
+
+    public void deleteJobs(int id) {
+        jobRepository.deleteJobs(id);
+    }
 }
