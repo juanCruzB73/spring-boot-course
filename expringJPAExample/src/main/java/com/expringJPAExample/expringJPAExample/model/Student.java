@@ -1,11 +1,15 @@
 package com.expringJPAExample.expringJPAExample.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 @Component
 @Scope("prototype")
+@Entity
 public class Student {
+    @Id
     private int rollNo;
     private int age;
     private int marks;
@@ -32,14 +36,5 @@ public class Student {
 
     public void setMarks(int marks) {
         this.marks = marks;
-    }
-
-    @Override
-    public String toString() {
-        return "Student{" +
-                "rollNo=" + rollNo +
-                ", age=" + age +
-                ", marks=" + marks +
-                '}';
     }
 }

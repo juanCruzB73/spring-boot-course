@@ -1,4 +1,4 @@
-package com.dbexample.jdbcExample.service;
+package com.expringJPAExample.expringJPAExample.service;
 
 import com.dbexample.jdbcExample.model.Student;
 import com.dbexample.jdbcExample.repository.StudentRepository;

@@ -4,7 +4,6 @@ import com.springbootrest.springbootrest.model.JobPost;
 import com.springbootrest.springbootrest.service.JobService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,6 +26,11 @@ public class JobController {
         return jobService.getJobById(id);
     }
 
+    @GetMapping("jobposts/keyword/{keyword}")
+    public List<JobPost> getJobsByKeyword(@PathVariable("keyword")String keyword) {
+        return jobService.search(keyword);
+    }
+
     @PostMapping("jobposts")
     public JobPost addJob(@RequestBody JobPost job){
         jobService.addJob(job);
@@ -45,5 +49,11 @@ public class JobController {
     public String deleteJob(@PathVariable int id){
         jobService.deleteJobs(id);
         return "deleated";
+    }
+
+    @GetMapping("load")
+    public  String loadData(){
+        jobService.load();
+        return "succes";
     }
 }

@@ -1,4 +1,4 @@
-package com.dbexample.jdbcExample.repository;
+package com.expringJPAExample.expringJPAExample.repository;
 
 import com.dbexample.jdbcExample.model.Student;
 import org.springframework.beans.factory.annotation.Autowired;
