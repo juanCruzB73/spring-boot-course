@@ -23,10 +23,49 @@ public class ProductService {
     }
 
     public Product addOrUpdateProduct(Product product, MultipartFile image) throws IOException {
-        product.setImageName(image.getOriginalFilename());
-        product.setImageType(image.getContentType());
-        product.setImageData(image.getBytes());
-        return  productRepository.save(product);
+        // Check if product exists
+        if (product.getId() != 0) {
+            // Product exists, so fetch it and update it
+            Product existingProduct = productRepository.findById(product.getId())
+                    .orElseThrow(() -> new IllegalArgumentException("Product not found"));
+
+            // Only update the fields that can be updated
+            existingProduct.setName(product.getName());
+            existingProduct.setDescription(product.getDescription());
+            existingProduct.setBrand(product.getBrand());
+            existingProduct.setPrice(product.getPrice());
+            existingProduct.setCategory(product.getCategory());
+            existingProduct.setReleaseDate(product.getReleaseDate());
+            existingProduct.setProductAvailable(product.isProductAvailable());
+            existingProduct.setStockQuantity(product.getStockQuantity());
+
+            // If the image file is provided, update it
+            if (image != null && !image.isEmpty()) {
+                existingProduct.setImageName(image.getOriginalFilename());
+                existingProduct.setImageType(image.getContentType());
+                existingProduct.setImageData(image.getBytes());
+            }
+
+            // Save the updated product
+            return productRepository.save(existingProduct);
+        } else {
+            // Product does not exist, create a new one
+            if (image != null && !image.isEmpty()) {
+                product.setImageName(image.getOriginalFilename());
+                product.setImageType(image.getContentType());
+                product.setImageData(image.getBytes());
+            }
+
+            return productRepository.save(product);
+        }
     }
 
+
+    public void deleteProducto(int id) {
+        productRepository.deleteById(id);
+    }
+
+    public List<Product> searchProducts(String keyword) {
+        return productRepository.searchProducts(keyword);
+    }
 }
