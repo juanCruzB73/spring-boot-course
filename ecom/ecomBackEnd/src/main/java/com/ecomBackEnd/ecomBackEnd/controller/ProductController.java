@@ -14,18 +14,17 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin
 public class ProductController {
     @Autowired
     private ProductService productService;
 
     @GetMapping("/products")
-    @CrossOrigin
     public ResponseEntity<List<Product>> getProducts(){
         return new ResponseEntity<>(productService.getAllProducts(), HttpStatus.ACCEPTED);
     }
 
     @GetMapping("/product/{id}")
-    @CrossOrigin
     public ResponseEntity<Product>getProductById(@PathVariable int id){
         Product product = productService.getProductById(id);
         if (product != null){
@@ -36,7 +35,6 @@ public class ProductController {
     }
 
     @GetMapping("product/{productId}/image")
-    @CrossOrigin
     public ResponseEntity<byte[]>getImageById(@PathVariable int productId){
         Product product = productService.getProductById(productId);
         if (product != null){
@@ -48,7 +46,6 @@ public class ProductController {
     }
 
     @PostMapping("/product")
-    @CrossOrigin
     public ResponseEntity<?> addProduct(
             @RequestPart("product") String productJson,
             @RequestPart("imageFile") MultipartFile imageFile) {
@@ -69,7 +66,6 @@ public class ProductController {
 
 
     @PutMapping("/product/{id}")
-    @CrossOrigin
     public ResponseEntity<String> updateProduct(
             @PathVariable int id,
             @RequestPart("product") String productJson,
@@ -91,7 +87,6 @@ public class ProductController {
         }
     }
     @DeleteMapping("/products/{id}")
-    @CrossOrigin
     public ResponseEntity<String>deleteProduct(@PathVariable int id){
         Product product = productService.getProductById(id);
         if(product != null){
@@ -102,7 +97,6 @@ public class ProductController {
         }
     }
     @GetMapping("/products/search")
-    @CrossOrigin
     public ResponseEntity<List<Product>>searchProducts(@RequestParam String keyword){
         List<Product>products=productService.searchProducts(keyword);
         System.out.println("searching with "+keyword);
