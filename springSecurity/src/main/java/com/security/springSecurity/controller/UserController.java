@@ -1,12 +1,15 @@
 package com.security.springSecurity.controller;
 
-import com.security.springSecurity.model.User;
+
+import com.security.springSecurity.model.AuthResponse;
+import com.security.springSecurity.model.LoginRequest;
+import com.security.springSecurity.model.RegisterRequest;
 import com.security.springSecurity.service.JwtService;
 import com.security.springSecurity.service.UserService;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,19 +23,13 @@ public class UserController {
     @Autowired
     private JwtService jwtService;
 
-    @PostMapping("register")
-    public User register(@RequestBody User user){
-        return userService.saveUser(user);
+    @PostMapping("auth/register")
+    public ResponseEntity<AuthResponse> register(@RequestBody RegisterRequest request){
+        return ResponseEntity.ok(userService.register(request));
     }
 
-    @PostMapping("login")
-    public String login(@RequestBody User user){
-        Authentication authentication = authenticationManager
-                .authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(),user.getPassword()));
-        if(authentication.isAuthenticated()){
-            return jwtService.generateToken(user.getUsername()) ;
-        }else {
-            return "Login Failed";
-        }
+    @PostMapping("auth/login")
+    public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest request){
+            return ResponseEntity.ok(userService.login(request));
     }
 }
