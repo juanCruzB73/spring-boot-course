@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "OauthDemoApplication",
+            "request": "launch",
+            "mainClass": "com.course.oauthDemo.OauthDemoApplication",
+            "projectName": "com.course-oauthDemo"
+        },
+        {
+            "type": "java",
             "name": "SpringbootfirstApplication",
             "request": "launch",
             "mainClass": "springbootfirst.src.main.java.com.springbootfirst.springbootfirst.SpringbootfirstApplication",
