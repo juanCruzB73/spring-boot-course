@@ -40,7 +40,7 @@ import org.springframework.security.web.util.matcher.MediaTypeRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig {
+public class  SecurityConfig {
 
     @Bean 
 	@Order
@@ -102,7 +102,7 @@ public class SecurityConfig {
 	public RegisteredClientRepository registeredClientRepository() {
 		RegisteredClient oidcClient = RegisteredClient.withId(UUID.randomUUID().toString())
 				.clientId("oidc-client")
-				.clientSecret("{noop}12345")
+				.clientSecret("{noop}1234567")
 				.clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
 				.authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
 				.authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
@@ -110,10 +110,27 @@ public class SecurityConfig {
 				.postLogoutRedirectUri("http://127.0.0.1:8080/")
 				.scope(OidcScopes.OPENID)
 				.scope(OidcScopes.PROFILE)
+				.scope("read")
+				.scope("write")
 				//.clientSettings(ClientSettings.builder().requireAuthorizationConsent(true).build())
 				.build();
 
-		return new InMemoryRegisteredClientRepository(oidcClient);
+		RegisteredClient oauthClient = RegisteredClient.withId(UUID.randomUUID().toString())
+				.clientId("oauth-client")
+				.clientSecret("{noop}123456789")
+				.clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
+				.authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
+				.authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
+				.redirectUri("http://127.0.0.1:8082/login/oauth2/code/oauth-client")
+				.redirectUri("http://127.0.0.1:8082/authorized")
+				.postLogoutRedirectUri("http://127.0.0.1:8082/logout")
+				.scope(OidcScopes.OPENID)
+				.scope(OidcScopes.PROFILE)
+				.scope("read")
+				.scope("write")
+				.build();
+
+		return new InMemoryRegisteredClientRepository(oidcClient,oauthClient);
 	}
 
 	@Bean 
