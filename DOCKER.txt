@@ -1,0 +1,14 @@
+DOCKER
+
+PROBLEM: GET A SERVER WORKING WITHOUT ALL THE PROGRAMS AND CONFIGURATIOS
+
+virtualization: a software that acts as hardware to let you use other operating systems
+
+VIRTUALIZATION SOLUTION: export the  hole iso with the configuration and programs installed and pass it to the group so they can use it, problem: too much resources usage 
+
+DOCKER SOLUTION :
+container:has server, db conection, configuration,etc
+containerization: create container and distribute them to other places.
+
+WHAT IS DOCKER:
+used by command lines
