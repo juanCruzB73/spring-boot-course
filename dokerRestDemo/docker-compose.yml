@@ -1,0 +1,28 @@
+services:
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    networks:
+      - my-network
+    depends_on:
+      - postgres
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: juanc
+      POSTGRES_PASSWORD: 12345
+      POSTGRES_DB: springcourse
+    ports:
+     - 5433:5432
+    networks:
+      - my-network
+    volumes:
+      - postgres-student-data:/var/lib/postgresql/data
+
+networks:
+  my-network:
+    driver: bridge
+
+volumes:
+  postgres-student-data:
