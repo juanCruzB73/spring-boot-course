@@ -1,6 +1,7 @@
 package com.springcourse.quizzapp.service;
 
 import com.springcourse.quizzapp.dao.QuizDao;
+import com.springcourse.quizzapp.feign.QuizInterface;
 import com.springcourse.quizzapp.model.Question;
 import com.springcourse.quizzapp.model.QuestionWrapper;
 import com.springcourse.quizzapp.model.Quiz;
@@ -19,16 +20,14 @@ public class QuizService {
     @Autowired
     QuizDao quizDao;
     @Autowired
-    QuestionDao questionDao;
+    QuizInterface quizInterface;
 
     public ResponseEntity<String> addQuizz(String category, int numQ, String title) {
         try{
-            List<Question>questions=questionDao.findByCategoryLimited(category,numQ);
-
+            List<Integer> questions = quizInterface.getQuestionsForQuiz(category, numQ).getBody();
             Quiz quiz = new Quiz();
-            quiz.setTitle("first quiz");
+            quiz.setTitle(title);
             quiz.setQuestions(questions);
-
             quizDao.save(quiz);
             return new ResponseEntity<>("Quiz created",HttpStatus.OK);
         } catch (Exception e) {
@@ -41,14 +40,13 @@ public class QuizService {
     public ResponseEntity<List<QuestionWrapper>> getQuizzById(Integer id) {
 
         try {
-            Optional<Quiz> quiz = quizDao.findById(id);
-            List<Question>questionFromDB=quiz.get().getQuestions();
-            List<QuestionWrapper>questionWrappers=new ArrayList<>();
-            for(Question question : questionFromDB){
-                QuestionWrapper questionWrapper=new QuestionWrapper(question.getId(),question.getCategory(),question.getOption1(),question.getOption2(),question.getOption3(),question.getOption4(),question.getDifficulty());
-                questionWrappers.add(questionWrapper);
-            }
-            return new ResponseEntity<>(questionWrappers,HttpStatus.OK);
+
+            Quiz quiz = quizDao.findById(id).get();
+            List<Integer>questionIds=quiz.getQuestions();
+
+            ResponseEntity<List<QuestionWrapper>>questionWrappers=quizInterface.getQuestionWrappers(questionIds);
+
+            return questionWrappers;
         }catch (Exception e){
             e.printStackTrace();
             return new ResponseEntity<>(new ArrayList<>(), HttpStatus.BAD_REQUEST);
@@ -70,20 +68,9 @@ public class QuizService {
     public ResponseEntity<Integer> submitQuiz(Integer id,List<Response> responses) {
         try{
             Quiz quiz = quizDao.findById(id).get();
-            List<Question>questions=quiz.getQuestions();
-            int right=0;
-            int i=0;
-            for(Response response:responses){
-                if(i>=questions.size()){
-                    System.out.println("breaking");
-                    break;
-                }
-                if(response.getRightanswer().equals(questions.get(i).getRightanswer())){
-                    right++;
-                }
-                i++;
-            }
-            return new ResponseEntity<>(right,HttpStatus.OK);
+            ResponseEntity<Integer> right = quizInterface.getScore(responses);
+
+            return right;
         }catch (Exception e){
             e.printStackTrace();
             return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);

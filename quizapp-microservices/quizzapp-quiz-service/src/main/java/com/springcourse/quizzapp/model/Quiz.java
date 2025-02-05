@@ -12,10 +12,10 @@ public class Quiz {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String title;
-    @ManyToMany
-    private List<Question>questions;
+    @ElementCollection
+    private List<Integer>questions;
 
-    public Quiz(Integer id, String title, List<Question> questions) {
+    public Quiz(Integer id, String title, List<Integer> questions) {
         this.id = id;
         this.title = title;
         this.questions = questions;
@@ -31,7 +31,7 @@ public class Quiz {
         return title;
     }
 
-    public List<Question> getQuestions() {
+    public List<Integer> getQuestions() {
         return questions;
     }
 
@@ -43,7 +43,7 @@ public class Quiz {
         this.title = title;
     }
 
-    public void setQuestions(List<Question> questions) {
+    public void setQuestions(List<Integer> questions) {
         this.questions = questions;
     }
 

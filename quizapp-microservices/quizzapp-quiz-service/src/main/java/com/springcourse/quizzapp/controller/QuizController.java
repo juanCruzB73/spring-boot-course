@@ -2,6 +2,7 @@ package com.springcourse.quizzapp.controller;
 
 import com.springcourse.quizzapp.model.QuestionWrapper;
 import com.springcourse.quizzapp.model.Quiz;
+import com.springcourse.quizzapp.model.QuizDto;
 import com.springcourse.quizzapp.model.Response;
 import com.springcourse.quizzapp.service.QuizService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +28,8 @@ public class QuizController {
     }
 
     @PostMapping("/addquiz")
-    public ResponseEntity<String>createQuiz(@RequestParam String category, @RequestParam int numQ,@RequestParam String title ){
-        return quizService.addQuizz(category,numQ,title);
+    public ResponseEntity<String>createQuiz(@RequestBody QuizDto quizDto){
+        return quizService.addQuizz(quizDto.getCategoryName(),quizDto.getNumQ(), quizDto.getTitle());
     }
 
     @PostMapping("submit/{id}")
